@@ -1,0 +1,60 @@
+/* General Styles */
+body {
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #333 !important;
+}
+
+/* Main Section with Background Image */
+.main-section {
+    background-image: url("grass.jpg");
+    
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Blur and Glass Effect */
+.main-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+}
+
+/* Box 1 and Box 2 Styles */
+.box-1, .box-2 {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+/* Animation for Question Text */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#question-text {
+    animation: blink 2s infinite;
+}
+
+/* Predict Button Size */
+.btn-lg {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+}

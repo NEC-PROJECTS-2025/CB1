@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Identifier</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-brand mb-0 h1 text-uppercase" style="font-family: 'Georgia', serif; font-size: 2rem; color: #fff;">Pest Identifier</span>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Box 1 -->
+        <div class="container d-flex justify-content-center align-items-center mt-4">
+            <div class="box-1 p-4 text-center shadow-lg rounded" style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); max-width: 600px; width: 100%;">
+                <!-- Question Text -->
+                <h1 id="question-text" class="mb-4">Want to Predict a pest?</h1>
+                <!-- Upload Button and Indication -->
+                <form id="upload-form" action="/predict" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="image-upload" name="file" accept="image/*" style="display: none;">
+                        <label for="image-upload" class="btn btn-primary">Upload Image</label>
+                        <span id="upload-indication" class="ms-2" style="display: none;"></span>
+                    </div>
+                    <!-- Predict Button -->
+                    <button type="submit" id="predict-btn" class="btn btn-danger btn-lg">Predict</button>
+                </form>
+
+                <!-- Box 2 (Hidden Initially) -->
+                <div id="box-2" class="mt-4 p-3 text-center shadow-lg rounded" style="background: rgba(255, 255, 255, 0.9); display: {% if predicted_class %}block{% else %}none{% endif %};">
+                    <!-- Uploaded Image -->
+                    <div class="d-flex justify-content-center mb-3">
+                        {% if predicted_class %}
+                            <img id="uploaded-image" src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image" style="width: 200px; height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img id="uploaded-image" src="#" alt="Uploaded Image" style="width: 200px; height: 200px; object-fit: cover; display: none;">
+                        {% endif %}
+                    </div>
+                    <!-- Predicted Class -->
+                    <h3 id="predicted-class" class="mb-3">Predicted Class: <span id="class-name">{% if predicted_class %}{{ predicted_class }}{% else %}XXXXXX{% endif %}</span></h3>
+                    <!-- Pest Description -->
+                    <p id="pest-description" class="mb-0">{% if predicted_class %}{{ pest_description }}{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
